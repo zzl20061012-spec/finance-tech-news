@@ -1,0 +1,116 @@
+name: Update news and deploy
+
+on:
+  push:
+    branches:
+      - main
+  schedule:
+    - cron: '17,47 * * * *'
+  workflow_dispatch:
+
+permissions: {}
+
+concurrency:
+  group: news-pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+      pages: read
+
+    steps:
+      - name: Check out source
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+
+      - name: Import the initial project source
+        if: ${{ hashFiles('finance-tech-news-source.zip') != '' }}
+        shell: bash
+        run: |
+          echo '32cf3f0527b55a58b3f4a4f8e6b8a3786ba707019490d996986a89d18be6f512  finance-tech-news-source.zip' | sha256sum --check
+          unzip -q finance-tech-news-source.zip -x '.github/*'
+          git rm -- finance-tech-news-source.zip
+          git add -- .gitignore DEPLOY.md README.md config index.html package.json package-lock.json scripts shared src tests tsconfig.json vite.config.ts
+          git -c user.name='github-actions[bot]' -c user.email='41898282+github-actions[bot]@users.noreply.github.com' commit -m 'Import finance and technology news project'
+          git push origin HEAD:refs/heads/main
+
+      - name: Configure Pages
+        uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7
+        with:
+          node-version: '24'
+          package-manager-cache: false
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Restore the last collection state
+        shell: bash
+        run: |
+          state_dir="$RUNNER_TEMP/news-state"
+          mkdir -p .cache
+          if git ls-remote --exit-code --refs origin refs/heads/data >/dev/null; then
+            git fetch --no-tags --depth=1 origin refs/heads/data
+            git worktree add --detach "$state_dir" FETCH_HEAD
+            cp "$state_dir/state.json" .cache/state.json
+          else
+            status=$?
+            if [[ "$status" != 2 ]]; then
+              echo "::error::Could not check the remote collection state."
+              exit "$status"
+            fi
+            git worktree add --orphan -b data "$state_dir"
+          fi
+
+      - name: Collect and validate news
+        run: npm run update
+
+      - name: Build the site
+        run: npm run build
+
+      - name: Save the collection state
+        shell: bash
+        run: |
+          test -s .cache/state.json
+          test -s dist/data/news.json
+          cmp public/data/news.json dist/data/news.json
+
+          state_dir="$RUNNER_TEMP/news-state"
+          cp .cache/state.json "$state_dir/state.json"
+          git -C "$state_dir" add -- state.json
+          if ! git -C "$state_dir" diff --cached --quiet; then
+            git -C "$state_dir" \
+              -c user.name='github-actions[bot]' \
+              -c user.email='41898282+github-actions[bot]@users.noreply.github.com' \
+              commit -m 'Update news collection state'
+            state_commit="$(git -C "$state_dir" rev-parse HEAD)"
+            git push origin "$state_commit:refs/heads/data"
+          fi
+
+      - name: Upload the Pages artifact
+        uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
+        with:
+          path: dist
+          retention-days: 1
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Deploy to Pages
+        id: deployment
+        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1
