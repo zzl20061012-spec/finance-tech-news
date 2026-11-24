@@ -24,6 +24,15 @@ npm.cmd run dev
 
 按 `Ctrl+C` 退出开发服务器。需要检查本机生产构建时，执行 `npm.cmd run build` 和 `npm.cmd run preview`。本机每次重新抓取后，开发服务器可直接读取新快照。预览服务器读取 `dist`，需要重新构建。
 
+在浏览器清空搜索框，分别点 **半导体**、**股市** 和 **AI板块**，确认每个板块都显示资讯。也可以另开一个 PowerShell 窗口，在项目目录运行下列命令。一次正常抓取应让三类都有条目。
+
+```powershell
+$snapshot = Get-Content -LiteralPath 'public/data/news.json' -Raw | ConvertFrom-Json
+foreach ($category in @('semiconductor', 'market', 'ai')) {
+    '{0}  {1}' -f $category, @($snapshot.items | Where-Object { $_.categories -contains $category }).Count
+}
+```
+
 ## 2. 创建公开仓库并推送源码
 
 1. 登录 GitHub，点右上角 **+ → New repository**。
@@ -111,6 +120,11 @@ on:
 3. 确认这次定时运行的 `build` 和 `deploy` 均通过，再打开站点快照查看 `updatedAt` 是否前进。手动触发和推送触发都可以发布站点，看到 `schedule` 的运行才能验证定时触发。
 
 要改成每小时一次，把 cron 改为 `17 * * * *` 并提交到 `main`。Actions 高负载时可能延迟或漏跑。公开仓库连续 60 天没有活动时，GitHub 可能自动停用计划任务。届时到 **Actions** 重新启用该工作流，再检查下一次定时记录。 [GitHub 计划任务说明](https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#schedule)
+
+### 免费额度与环境变量
+
+- 公开仓库使用标准 GitHub 托管运行器，Actions 运行分钟免费。站点使用免费的 `github.io` 地址，Pages 目前限制发布站点大小 1 GB，流量有每月 100 GB 的软限制。项目把每次发布的构建产物留存 1 天。 [Actions 计费](https://docs.github.com/en/billing/concepts/product-billing/github-actions) · [Pages 限制](https://docs.github.com/en/pages/getting-started-with-github-pages/github-pages-limits)
+- **环境变量和 Secrets 留空即可。** RSS 免密钥，工作流的 `GITHUB_TOKEN` 由 GitHub 自动提供，权限已在 YAML 中按作业声明。Git 命令首次推送需要使用你自己的 GitHub 登录，和上线后的工作流凭证是两回事。 [GitHub 自动令牌](https://docs.github.com/en/actions/concepts/security/github_token)
 
 页面的 **下次自动刷新** 是浏览器的五分钟检查倒计时。**立即刷新** 会重新读取已发布快照。想立即抓取上游消息，用维护者的 **Run workflow**，等待部署成功后再刷新页面。
 
