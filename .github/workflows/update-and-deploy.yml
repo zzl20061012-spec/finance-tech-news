@@ -27,17 +27,6 @@ jobs:
       - name: Check out source
         uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
 
-      - name: Import the initial project source
-        if: ${{ hashFiles('finance-tech-news-source.zip') != '' }}
-        shell: bash
-        run: |
-          echo '32cf3f0527b55a58b3f4a4f8e6b8a3786ba707019490d996986a89d18be6f512  finance-tech-news-source.zip' | sha256sum --check
-          unzip -q finance-tech-news-source.zip -x '.github/*'
-          git rm -- finance-tech-news-source.zip
-          git add -- .gitignore DEPLOY.md README.md config index.html package.json package-lock.json scripts shared src tests tsconfig.json vite.config.ts
-          git -c user.name='github-actions[bot]' -c user.email='41898282+github-actions[bot]@users.noreply.github.com' commit -m 'Import finance and technology news project'
-          git push origin HEAD:refs/heads/main
-
       - name: Configure Pages
         uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
 
