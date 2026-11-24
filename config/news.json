@@ -1,0 +1,170 @@
+{
+  "sources": [
+    {
+      "id": "ithome",
+      "name": "IT之家",
+      "url": "https://www.ithome.com/rss/",
+      "language": "zh-CN",
+      "summary": false
+    },
+    {
+      "id": "cna-finance",
+      "name": "中央通訊社 · 產經證券",
+      "url": "https://feeds.feedburner.com/rsscna/finance",
+      "language": "zh-TW",
+      "summary": true
+    },
+    {
+      "id": "cna-tech",
+      "name": "中央通訊社 · 科技",
+      "url": "https://feeds.feedburner.com/rsscna/technology",
+      "language": "zh-TW",
+      "summary": true
+    },
+    {
+      "id": "technews-tsmc",
+      "name": "科技新報",
+      "url": "https://technews.tw/tag/tsmc-chinese/feed",
+      "language": "zh-TW",
+      "defaultCategories": ["semiconductor"],
+      "summary": false
+    },
+    {
+      "id": "toms-semiconductors",
+      "name": "Tom’s Hardware",
+      "url": "https://www.tomshardware.com/feeds/tag/semiconductors",
+      "language": "en",
+      "defaultCategories": ["semiconductor"],
+      "summary": false
+    },
+    {
+      "id": "nvidia",
+      "name": "NVIDIA Newsroom",
+      "url": "https://nvidianews.nvidia.com/cats/press_release.xml",
+      "language": "en",
+      "defaultCategories": ["semiconductor"],
+      "summary": true
+    },
+    {
+      "id": "skhynix",
+      "name": "SK hynix Newsroom",
+      "url": "https://news.skhynix.com/en/feed/",
+      "language": "en",
+      "defaultCategories": ["semiconductor"],
+      "summary": false
+    },
+    {
+      "id": "cnbc-finance",
+      "name": "CNBC",
+      "url": "https://www.cnbc.com/id/10000664/device/rss/rss.html",
+      "language": "en",
+      "defaultCategories": ["market"],
+      "summary": false
+    },
+    {
+      "id": "rthk-finance",
+      "name": "香港電台",
+      "url": "https://rthk.hk/rthk/news/rss/c_expressnews_cfinance.xml",
+      "language": "zh-HK",
+      "defaultCategories": ["market"],
+      "summary": false
+    },
+    {
+      "id": "fed",
+      "name": "美联储",
+      "url": "https://www.federalreserve.gov/feeds/press_monetary.xml",
+      "language": "en",
+      "defaultCategories": ["market"],
+      "summary": true
+    },
+    {
+      "id": "openai",
+      "name": "OpenAI",
+      "url": "https://openai.com/news/rss.xml",
+      "language": "en",
+      "defaultCategories": ["ai"],
+      "summary": false
+    },
+    {
+      "id": "deepmind",
+      "name": "Google DeepMind",
+      "url": "https://deepmind.google/blog/rss.xml",
+      "language": "en",
+      "defaultCategories": ["ai"],
+      "summary": false
+    },
+    {
+      "id": "google-chip-zh",
+      "name": "Google 新闻",
+      "url": "https://news.google.com/rss/search?q=TSMC+OR+ASML+when%3A3d&hl=zh-TW&gl=TW&ceid=TW%3Azh-Hant",
+      "language": "zh-TW",
+      "defaultCategories": ["semiconductor"],
+      "summary": false,
+      "enabled": false
+    },
+    {
+      "id": "google-market-en",
+      "name": "Google News",
+      "url": "https://news.google.com/rss/search?q=Nasdaq+OR+%22S%26P+500%22+when%3A2d&hl=en-US&gl=US&ceid=US%3Aen",
+      "language": "en",
+      "defaultCategories": ["market"],
+      "summary": false,
+      "enabled": false
+    },
+    {
+      "id": "yahoo-nvda",
+      "name": "Yahoo Finance",
+      "url": "https://feeds.finance.yahoo.com/rss/2.0/headline?s=NVDA&region=US&lang=en-US",
+      "language": "en",
+      "defaultCategories": ["market"],
+      "summary": false,
+      "enabled": false
+    }
+  ],
+  "keywords": {
+    "semiconductor": [
+      "半导体", "半導體", "芯片", "晶片", "光刻", "微影", "晶圆", "晶圓", "晶圆厂", "晶圓廠",
+      "先进封装", "先進封裝", "台积电", "台積電", "英伟达", "輝達", "英偉達", "阿斯麦", "艾司摩爾",
+      "中芯国际", "中芯國際", "联发科", "聯發科", "三星电子", "三星電子", "美光", "海力士",
+      "半导体存储", "記憶體", "semiconductor", "semiconductors", "chip", "chips", "wafer", "foundry",
+      "lithography", "EUV", "GPU", "NVIDIA", "NVDA", "TSMC", "ASML", "SMIC", "Intel", "AMD",
+      "MediaTek", "Micron", "SK hynix", "HBM", "DRAM", "NAND", "CoWoS", "RISC-V"
+    ],
+    "market": [
+      "股市", "美股", "港股", "台股", "A股", "大盘", "大盤", "纳斯达克", "那斯達克", "納斯達克",
+      "道琼斯", "道瓊", "标普", "標普", "恒生指数", "恒生指數", "股价", "股價", "股指",
+      "涨停", "漲停", "期指", "市值", "开盘", "開盤", "收盘", "收盤", "盘前", "盤前", "盘后", "盤後",
+      "财报", "財報", "财季", "財季", "营收", "營收", "获利", "獲利", "每股收益", "美联储",
+      "聯準會", "美聯儲", "降息", "加息", "升息", "通胀", "通膨", "通脹", "国债收益率", "公債殖利率",
+      "非农", "非農", "利率决议", "利率決議", "Nasdaq", "S&P 500", "Dow Jones", "stock market",
+      "stocks", "shares", "earnings", "futures", "Wall Street", "Federal Reserve", "FOMC",
+      "rate cut", "rate hike", "Treasury yields", "CPI", "PCE", "GDP", "IPO", "SEC filing"
+    ],
+    "ai": [
+      "AI", "人工智能", "人工智慧", "大模型", "大型語言模型", "大语言模型", "生成式", "算力", "推理模型",
+      "多模态", "多模態", "智能体", "代理式", "AI伺服器", "AI服务器", "数据中心", "資料中心",
+      "OpenAI", "ChatGPT", "Claude", "Anthropic", "Gemini", "DeepMind", "DeepSeek", "Llama",
+      "Copilot", "Qwen", "通义千问", "通義千問", "豆包", "Sora", "GPT", "LLM", "LLMs",
+      "artificial intelligence", "language model", "generative AI", "AI inference", "AI training", "AI agents"
+    ]
+  },
+  "aliases": [
+    ["NVDA", "NVIDIA", "英伟达", "英偉達", "辉达", "輝達"],
+    ["TSM", "TSMC", "台积电", "台積電", "台湾积体电路", "台灣積體電路"],
+    ["ASML", "阿斯麦", "艾司摩尔", "艾司摩爾"],
+    ["AMD", "超威", "超微"],
+    ["INTC", "Intel", "英特尔", "英特爾"],
+    ["MU", "Micron", "美光"],
+    ["SK hynix", "海力士"],
+    ["MSFT", "Microsoft", "微软", "微軟"],
+    ["AAPL", "Apple", "苹果", "蘋果"],
+    ["GOOG", "GOOGL", "Alphabet", "Google", "谷歌"],
+    ["META", "Meta Platforms", "脸书", "臉書"],
+    ["AMZN", "Amazon", "亚马逊", "亞馬遜"],
+    ["OpenAI", "ChatGPT", "GPT"],
+    ["Anthropic", "Claude"],
+    ["Google DeepMind", "DeepMind", "Gemini"],
+    ["Nasdaq", "纳斯达克", "那斯達克", "納斯達克"],
+    ["S&P 500", "标普500", "標普500", "标普 500", "標普 500"]
+  ]
+}

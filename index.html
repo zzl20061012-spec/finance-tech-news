@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="description" content="追踪半导体、股市与 AI板块的中英文资讯。" />
+    <title>市场信号 · 财经与科技资讯</title>
+    <script>
+      try {
+        const theme = localStorage.getItem("market-signal-theme");
+        if (theme === "light" || theme === "dark") {
+          document.documentElement.dataset.theme = theme;
+        }
+      } catch {}
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#news">跳到资讯</a>
+    <header class="masthead">
+      <div class="shell masthead-inner">
+        <a class="brand" href="./" aria-label="市场信号首页">
+          <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+          <span>市场信号</span>
+        </a>
+
+        <div class="masthead-status">
+          <div class="status-detail">
+            <span class="status-label">上次更新时间 <span class="timezone-label">· 香港时间</span></span>
+            <time id="last-updated">等待首次加载</time>
+          </div>
+          <div class="status-detail countdown-detail">
+            <span class="status-label">下次自动刷新</span>
+            <span id="countdown" class="countdown">—:—</span>
+          </div>
+          <button id="refresh-button" class="refresh-button" type="button" title="重新读取网站已发布的资讯">
+            <span class="refresh-icon" aria-hidden="true">↻</span>
+            <span id="refresh-label">立即刷新</span>
+          </button>
+        </div>
+
+        <button id="theme-button" class="icon-button theme-button" type="button" aria-label="切换主题">
+          <span class="theme-icon" aria-hidden="true"></span>
+        </button>
+      </div>
+    </header>
+
+    <main class="shell content">
+      <section class="intro" aria-labelledby="page-title">
+        <div>
+          <h1 id="page-title">财经与科技资讯</h1>
+          <p>追踪芯片产业、美股与 AI 的最新动向</p>
+        </div>
+        <p id="update-notice" class="update-notice" role="status"></p>
+      </section>
+
+      <div class="dashboard">
+        <section id="news" class="news-panel" aria-labelledby="news-heading" tabindex="-1">
+          <div class="news-tools">
+            <h2 id="news-heading" class="visually-hidden">资讯列表</h2>
+            <div class="topic-filters" role="group" aria-label="按板块筛选">
+              <button class="topic-filter" type="button" data-filter="all" aria-pressed="true">全部</button>
+              <button class="topic-filter" type="button" data-filter="semiconductor" aria-pressed="false">半导体</button>
+              <button class="topic-filter" type="button" data-filter="market" aria-pressed="false">股市</button>
+              <button class="topic-filter" type="button" data-filter="ai" aria-pressed="false">AI板块</button>
+            </div>
+            <label class="search">
+              <span class="visually-hidden">搜索资讯</span>
+              <span class="search-icon" aria-hidden="true"></span>
+              <input id="search-input" type="search" placeholder="搜索资讯…" autocomplete="off" />
+            </label>
+          </div>
+
+          <div class="list-heading">
+            <span id="result-count" role="status">正在加载资讯</span>
+            <span class="list-order">时间从新到旧</span>
+          </div>
+          <ul id="news-list" class="news-list"></ul>
+          <div id="news-empty" class="empty-state">正在读取最新资讯…</div>
+        </section>
+
+        <aside class="sidebar" aria-labelledby="sources-heading">
+          <div class="source-panel">
+            <div class="source-heading">
+              <h2 id="sources-heading">资讯来源</h2>
+              <span id="source-count" class="source-count"></span>
+            </div>
+            <p id="sources-empty" class="sources-empty">等待来源状态</p>
+            <ul id="source-list" class="source-list"></ul>
+          </div>
+        </aside>
+      </div>
+    </main>
+
+    <footer class="shell site-footer">
+      <span>市场信号</span>
+      <span>点按标题阅读来源网站的原文</span>
+    </footer>
+
+    <noscript><p class="shell">此页面需要 JavaScript 才能加载资讯。</p></noscript>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
+
